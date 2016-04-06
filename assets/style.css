@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'gt-pressura-mono-light';
+    src: url(GT-Pressura-Mono-Light.otf);
+}
+
+@font-face {
+    font-family: 'gt-pressura-mono-regular';
+    src: url(GT-Pressura-Mono-Regular.otf);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'gt-pressura-mono-light', monospace, sans-serif;
+    background: #2D2626;
+}
+
+body, body * {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'gt-pressura-mono-regular'
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    color: #30977B;
+    text-decoration: none;
+}
+
+#logo {
+    margin: 1em 1em 1em 1em;
+    height: 2.5em;
+    width: auto;
+}
+
+body {
+    display: flex; display: -webkit-flex;
+    flex-direction: column; -webkit-flex-direction: column;
+}
+
+#menu {
+    height: 4.5em;
+    border: 1px solid #333434;
+}
+
+#container {
+    display: flex; display: -webkit-flex;
+    flex: 1; -webkit-flex: 1;
+}
+
+#sidebar {
+    background: #242020;
+    color: #FFFFFF;
+    padding: 1em;
+    width: 30em;
+    overflow: scroll;
+    font-size: 90%;
+}
+
+#sidebar h1 {
+    font-size: 120%;
+}
+
+#sidebar li {
+    color: #30977B;
+}
+
+#sidebar li.group {
+    color: #FFFFFF;
+    margin: 1.5em 0 1em 0;
+}
+
+#sidebar li a {
+    color: #30977B;
+    display: block;
+    overflow: auto;
+    display: flex;
+}
+
+#sidebar li span {
+    width: 15em;
+}
+
+#sidebar li span.version {
+    opacity: 0.5;
+    width: 5em;
+}
+
+#sidebar li span.npm {
+    width: 12em;
+}
+
+#sidebar li span.tag {
+    width: 5em;
+    transform: "scale(0.5, 0.5)";
+}
+
+#sidebar li span.issues {
+    width: 5em;
+}
+
+#sidebar li a:hover {
+    color: #FFFFFF;
+}
+
+#readmeViewer {
+    flex: 1; -webkit-flex: 1;
+    background: #1F1B1B;
+    color: white;
+    padding: 2em;
+    overflow: scroll;
+}
+
+#readmeViewer h1, h2, h3, h4, h5, p, pre {
+    margin: 1em 0 1em 0;
+}
+
+#readmeViewer ol {
+    margin-left: 3em;
+}
+
+#readmeViewer pre {
+    padding: 1em;
+    background: #1A1717;
+}
