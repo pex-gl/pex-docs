@@ -10,8 +10,14 @@ pex-gl/pex-color
 pex-gl/pex-gui
 pex-gl/pex-draw
 pex-gl/pex-random
-pex-gl/pex-fx
+#extra
 pex-gl/pex-video
+pex-gl/pex-fx
+#extra-wip
+pex-gl/pex-materials
+pex-gl/pex-typo
+pex-gl/pex-audio
+pex-gl/pex-gltf
 pex-gl/pex-renderer
 #geom/primitives
 vorg/primitive-box
@@ -34,7 +40,6 @@ vorg/interpolate-angle
 vorg/interpolate-arrays
 #io
 jam3/parse-dds
-pex-gl/pex-gltf
 #glsl
 stackgl/glslify-promise
 vorg/glslify-sync
@@ -47,7 +52,3 @@ juliangruber/is-mobile
 pex-gl/pex-examples
 vorg/pragmatic-pbr
 vorg/pex-experiments
-#todo
-pex-gl/pex-materials
-pex-gl/pex-typo
-pex-gl/pex-audio

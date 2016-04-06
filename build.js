@@ -36,7 +36,16 @@ var Website = React.createFactory(React.createClass({
             var repo = (item.package.homepage && item.package.homepage) ? item.package.homepage : '';
             var readmeStr = item.readme;
             var readmeDir = __dirname + '/build/readme/' + item.package.name;
-            var readmeHtml = reader.parse(readmeStr);
+            var baseUrl = '';
+            if (item.package.repository && item.package.repository.url) {
+                //TODO: improve this
+                baseUrl = item.package.repository.url;
+                baseUrl = baseUrl.replace('.git', '');
+                baseUrl = baseUrl.replace(/.+\/\/github.com\//, '');
+                baseUrl = 'https://raw.githubusercontent.com/' + baseUrl + '/master/';
+            }
+            var readmeHtml = writer.render(reader.parse(readmeStr));
+            readmeHtml = readmeHtml.replace(/img src="(?!http)([^"]+)/g, "img src=\"" + baseUrl + "$1");
             if (!fs.existsSync(readmeDir)) {
                 fs.mkdirSync(readmeDir);
             }
@@ -46,7 +55,7 @@ var Website = React.createFactory(React.createClass({
                 DOM.a({ href: 'javascript:showReadme(\''+repo+'\',\''+item.package.name+'\')'},
                     DOM.span({}, item.name),
                     //DOM.span({ className: 'version' }, item.package.version),
-                    //DOM.span({ className: 'npm'}, DOM.img({ src: 'https://img.shields.io/npm/v/'+item.package.name+'.svg' })),
+                    DOM.span({ className: 'npm'}, DOM.img({ src: 'https://img.shields.io/npm/v/'+item.package.name+'.svg' })),
                     //DOM.span({ className: 'tag'}, DOM.img({src: 'https://img.shields.io/github/tag/'+repo.replace('https://github.com/','').replace('http://github.com/','').replace(/\.git$/,'')+'.svg' })),
                     DOM.span({ className: 'issues'}, DOM.img({src: 'https://img.shields.io/github/issues-raw/'+repo.replace('https://github.com/','').replace('http://github.com/','').replace(/\.git$/,'')+'.svg' }))
                 )

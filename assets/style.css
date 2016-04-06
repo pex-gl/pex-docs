@@ -10,6 +10,7 @@
 
 html, body {
     height: 100%;
+    font-size: 100%;
 }
 
 body {
@@ -71,6 +72,7 @@ body {
 
 #sidebar li {
     color: #30977B;
+    line-height: 2.1rem;
 }
 
 #sidebar li.group {
@@ -117,6 +119,10 @@ body {
     color: white;
     padding: 2em;
     overflow: scroll;
+}
+
+#readmeViewer img {
+    max-width: 50%;
 }
 
 #readmeViewer h1, h2, h3, h4, h5, p, pre {
