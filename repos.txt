@@ -39,6 +39,7 @@ mikkoh/geo-arc
 #geom/3d
 vorg/geom-compute-edges
 vorg/geom-triangulate
+vorg/geom-revolve
 #geom/2d
 vorg/hammersley
 vorg/fit-rect
