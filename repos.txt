@@ -40,9 +40,12 @@ mikkoh/geo-arc
 vorg/geom-compute-edges
 vorg/geom-triangulate
 vorg/geom-revolve
+nicknikolov/ray-geom-intersections
 #geom/2d
 vorg/hammersley
 vorg/fit-rect
+#algo/3d
+nicknikolo/space-colonization
 #math
 vorg/interpolate-angle
 vorg/interpolate-arrays
@@ -60,3 +63,4 @@ juliangruber/is-mobile
 pex-gl/pex-examples
 vorg/pragmatic-pbr
 vorg/pex-experiments
+
