@@ -1,5 +1,4 @@
 #core
-<<<<<<< HEAD
 pex-gl/pex-gl
 pex-gl/pex-context
 pex-gl/pex-io
