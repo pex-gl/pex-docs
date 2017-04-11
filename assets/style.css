@@ -36,6 +36,10 @@ a {
     text-decoration: none;
 }
 
+pre {
+    line-height: 150%;
+}
+
 #logo {
     margin: 1em 1em 1em 1em;
     height: 2.5em;
@@ -72,7 +76,7 @@ body {
 
 #sidebar li {
     color: #30977B;
-    line-height: 2.1rem;
+    x-line-height: 2.1rem;
 }
 
 #sidebar li.group {
@@ -93,7 +97,8 @@ body {
 
 #sidebar li span.version {
     opacity: 0.5;
-    width: 5em;
+    color: white;
+    xwidth: 5em;
 }
 
 #sidebar li span.npm {
