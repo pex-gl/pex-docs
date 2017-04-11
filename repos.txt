@@ -1,6 +1,6 @@
 #core
-regl-project/regl
 pex-gl/pex-gl
+pex-gl/pex-context
 pex-gl/pex-io
 pex-gl/pex-math
 pex-gl/pex-random
@@ -23,9 +23,11 @@ pex-gl/pex-typo
 pex-gl/pex-audio
 pex-gl/pex-gltf
 pex-gl/pex-renderer
+pex-gl/pex-nodes
 #geom/primitives
 vorg/primitive-box
 vorg/primitive-cube
+vorg/primitive-rounded-cube
 vorg/primitive-capsule
 vorg/primitive-plane
 glo-js/primitive-sphere
