@@ -112,6 +112,12 @@ body {
 
 #sidebar li span.issues {
     width: 5em;
+    opacity: 0.5;
+    color: white;
+}
+
+#sidebar li span.dash {
+    opacity: 0.5;
 }
 
 #sidebar li a:hover {

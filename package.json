@@ -13,7 +13,8 @@
   "license": "MIT",
   "dependencies": {
     "commonmark": "^0.25.0",
-    "ecosystem-docs": "^1.1.0",
+    "cross-env": "^4.0.0",
+    "ecosystem-docs": "vorg/ecosystem-docs#9dff1a8c5a7c0ca79421833cc586cf829a707293",
     "ghauth": "^3.2.0",
     "react": "^0.13.3"
   }

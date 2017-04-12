@@ -2,3 +2,4 @@ build/
 node_modules/
 repos.json.txt
 .DS_Store
+config.json

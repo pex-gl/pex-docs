@@ -44,7 +44,7 @@ nicknikolov/ray-geom-intersections
 vorg/hammersley
 vorg/fit-rect
 #algo/3d
-nicknikolo/space-colonization
+nicknikolov/space-colonization
 #math
 vorg/interpolate-angle
 vorg/interpolate-arrays
