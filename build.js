@@ -112,5 +112,7 @@ html = '<!DOCTYPE html>\n' + html
 html = html.replace(/&quot/g, '"')
 
 fs.writeFileSync(__dirname + '/build/index.html', html)
+fs.writeFileSync(__dirname + '/index.html', html)
 
 execSync('cp -r ' + __dirname + '/assets build')
+execSync('cp -r ' + __dirname + '/build/* .')
