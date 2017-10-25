@@ -1,0 +1,85 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <h1><a name="is-electron-renderer"></a>is-electron-renderer</h1>
+<p>Check if code is running in Electron <code>renderer</code> process.</p>
+<h2><a name="why-"></a>Why?</h2>
+<p>Electron code can run in either the <code>main</code> process or
+the <code>renderer</code> process. This is the same as asking if
+the code is running in a web page with access to the
+DOM or not. Read more here: <a href="https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md">https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md</a></p>
+<h3><a name="use-cases-"></a>Use Cases:</h3>
+<ul>
+<li>Creating a single module that acts differently whether it's running in <code>main</code> or <code>renderer</code>.</li>
+<li>Logging utility. One process (<code>main</code>) would be responsible for writing to log files, while
+renderers would send log data to the <code>main</code>. Would allow your code to have one <code>log</code> method.</li>
+<li>Testing. Your test code may behave differently if the DOM is available.</li>
+<li>Normalize <code>console.log</code> behavior. <code>console.log</code> behavior is weird in <code>renderer</code>, this can easily be fixed.</li>
+</ul>
+<h3><a name="why-use-a-one-line-module-"></a>Why Use a One Line Module?</h3>
+<p>Excellent discussion here: <a href="https://github.com/sindresorhus/ama/issues/10">https://github.com/sindresorhus/ama/issues/10</a>. If that doesn't convince you,
+then maybe the fact that Electron could change the way that they inherit <code>global</code> in <code>renderer</code> and
+if they do, you would have to change your code whereas if you used this module, you'd just have to update
+to the latest version =)</p>
+<h2><a name="install"></a>Install</h2>
+<pre><code>npm i --save is-electron-renderer
+</code></pre>
+<h2><a name="usage"></a>Usage</h2>
+<p>You'll notice that when using <code>console.log</code> in Electron that in the <code>renderer</code> process
+outputs some weird log level garbage to <code>stderr</code> before your actual console message.
+You can normalize this behavior:</p>
+<p><strong>console-hook.js</strong>:</p>
+<pre><code class="lang-js"><span class="hljs-comment">// clean up Electron output</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hook</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> isRenderer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-electron-renderer'</span>)
+  <span class="hljs-keyword">var</span> pre = <span class="hljs-string">'('</span> + (isRenderer ? <span class="hljs-string">'RENDERER'</span> : <span class="hljs-string">'MAIN'</span>) + <span class="hljs-string">') '</span>
+  <span class="hljs-built_in">console</span>.log = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">msg</span>) </span>{
+    process.stdout.write(pre + msg + <span class="hljs-string">'\n'</span>)
+  }
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  hook: hook
+}
+</code></pre>
+<p><strong>index.js</strong>:</p>
+<pre><code class="lang-js"><span class="hljs-built_in">require</span>(<span class="hljs-string">'./console-hook'</span>).hook()
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello'</span>)
+</code></pre>
+<p>output (main):</p>
+<pre><code>(MAIN) hello
+</code></pre>
+<p>output (renderer):</p>
+<pre><code>(RENDERER) hello
+</code></pre>
+<h2><a name="api"></a>API</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> isRenderer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'is-electron-renderer'</span>)
+<span class="hljs-built_in">console</span>.log(isRenderer)
+<span class="hljs-comment">// =&gt; (BOOLEAN)</span>
+</code></pre>
+<h2><a name="license"></a>License</h2>
+<p>MIT</p>
+<p>Copyright 2015 <a href="https://github.com/jprichardson">JP Richardson</a></p>
+
+  </body>
+  </html>
+  

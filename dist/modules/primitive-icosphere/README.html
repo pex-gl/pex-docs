@@ -1,0 +1,63 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <h1><a name="primitive-icosphere"></a>primitive-icosphere</h1>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/stable.svg" alt="stable" /></a></p>
+<p><a href="http://glo-js.github.io/primitive-icosphere/"><img src="http://i.imgur.com/Ais73FY.png" alt="demo" /></a></p>
+<p><a href="http://glo-js.github.io/primitive-icosphere/">(demo)</a></p>
+<p>A minimal icosphere geometry for 3D rendering, including normals, UVs and cell indices.</p>
+<p>This uses <a href="https://www.npmjs.com/package/icosphere">icosphere</a> under the hood, but includes some routines to reduce texture seams. However, at certain angles and subdivisions, the seams will still be visible.</p>
+<p>The UV seam fixes have been adapted from <a href="http://mft-dev.dk/uv-mapping-sphere/">UV Mapping a Sphere</a>.</p>
+<h2><a name="example"></a>Example</h2>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> radius = <span class="hljs-number">1</span>
+<span class="hljs-keyword">var</span> mesh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'primitive-icosphere'</span>)(radius, {
+  subdivisions: <span class="hljs-number">3</span>
+})
+
+<span class="hljs-comment">// the simplicial complex</span>
+<span class="hljs-built_in">console</span>.log(mesh.positions, mesh.cells)
+
+<span class="hljs-comment">// rendering attributes</span>
+<span class="hljs-built_in">console</span>.log(mesh.uvs)
+<span class="hljs-built_in">console</span>.log(mesh.normals)
+</code></pre>
+<h2><a name="usage"></a>Usage</h2>
+<p><a href="https://www.npmjs.com/package/primitive-icosphere"><img src="https://nodei.co/npm/primitive-icosphere.png" alt="NPM" /></a></p>
+<h4><a name="-mesh---sphere-radius---opt---"></a><code>mesh = sphere(radius, [opt])</code></h4>
+<p>Creates a new icosphere mesh with the given <code>radius</code> (default 1) and options:</p>
+<ul>
+<li><code>subdivisions</code> number of subdivisions, defaults to <code>2</code>. Determines the mesh quality (recommended between 0 and 5)</li>
+</ul>
+<p>The returned mesh is an object with the following data:</p>
+<pre><code>{
+  positions: [ [x, y, z], [x, y, z], ... ],
+  cells: [ [a, b, c], [a, b, c], ... ],
+  uvs: [ [u, v], [u, v], ... ],
+  normals: [ [x, y, z], [x, y, z], ... ]
+}
+</code></pre>
+<h2><a name="license"></a>License</h2>
+<p>MIT, see <a href="http://github.com/glo-js/primitive-icosphere/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+
+  </body>
+  </html>
+  

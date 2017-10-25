@@ -1,0 +1,54 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <h1><a name="hammersley"></a>hammersley</h1>
+<p><img src="screenshot.png" alt /></p>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/stable.svg" alt="stable" /></a></p>
+<p>Computes i-th point in a Hammersley Point Set of size n</p>
+<h2><a name="usage"></a>Usage</h2>
+<p><a href="https://www.npmjs.com/package/hammersley"><img src="https://nodei.co/npm/hammersley.png" alt="NPM" /></a></p>
+<h4><a name="hammersley-i--n-"></a>hammersley(i, n)</h4>
+<p>Parameters:<br />
+<code>i</code> - index of sample which coordinates we want to calculate<br />
+<code>n</code> - number of samples in the point set we are generating</p>
+<p>Returns:<br />
+<code>[x,y]</code> - i-th point from a Hammersley point set of size n, x and y are from 0..1</p>
+<h2><a name="example"></a>Example</h2>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> hammersley = <span class="hljs-built_in">require</span>(<span class="hljs-string">'hammersley'</span>);
+
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">300</span>; i++) {
+    <span class="hljs-keyword">var</span> p = hammersley(i, <span class="hljs-number">300</span>);
+    <span class="hljs-comment">//0 -&gt; [ 0, 0 ]</span>
+    <span class="hljs-comment">//1 -&gt; [ 0.00333, 0.5 ]</span>
+    <span class="hljs-comment">//2 -&gt; [ 0.00666, 0.25 ]</span>
+    <span class="hljs-comment">//3 -&gt; [ 0.01, 0.75 ]</span>
+    <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<h2><a name="see-also"></a>See also</h2>
+<p>Based on <a href="http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html">Hammersley Points on the Hemisphere</a> by Holger Dammertz [2012]</p>
+<h2><a name="license"></a>License</h2>
+<p>MIT, see <a href="http://github.com/vorg/hammersley/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+
+  </body>
+  </html>
+  

@@ -1,0 +1,51 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <p><img src="screenshot.jpg" alt /></p>
+<h1><a name="pex-gltf"></a>pex-gltf</h1>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/experimental.svg" alt="experimental" /></a></p>
+<p><a href="https://github.com/KhronosGroup/glTF">glTF</a> loader for the PEX library</p>
+<h2><a name="usage"></a>Usage</h2>
+<pre><code>npm install pex-gltf --save
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> loadGLTF = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pex-gltf'</span>);
+
+loadGLTF(<span class="hljs-string">'scene.gltf'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, data</span>) </span>{
+    <span class="hljs-keyword">if</span> (!err) {
+        <span class="hljs-comment">//data.meshes</span>
+        <span class="hljs-comment">//data.scenes</span>
+        <span class="hljs-comment">//...</span>
+    }
+})
+</code></pre>
+<h3><a name="running-the-example-code"></a>Running the example code</h3>
+<p>Download the Khronos Group glTF repository containing example models (warning: it's 500MB) either by clonning the <a href="https://github.com/KhronosGroup/glTF">glTF repository</a>:</p>
+<pre><code>cd example
+git clone https://github.com/KhronosGroup/glTF
+</code></pre>
+<p>or by downloading <a href="https://github.com/KhronosGroup/glTF/archive/master.zip">the ZIP copy</a> and unpacking it into <code>pex-gltf/example/glTF</code></p>
+<h2><a name="license"></a>License</h2>
+<p>MIT, see <a href="http://github.com/vorg/pex-gltf/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+
+  </body>
+  </html>
+  

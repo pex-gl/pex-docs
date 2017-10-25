@@ -1,0 +1,66 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <h1><a name="pex-materials"></a>pex-materials</h1>
+<p>Additional glsl materials for the PEX library</p>
+<p><img src="screenshot.jpg" alt /></p>
+<h2><a name="example"></a>Example</h2>
+<pre><code>var ShowNormals = require('pex-materials/show-normals');
+var showNormalsProgram = ctx.createProgram(ShowNormals.Vert, ShowNormals.Frag);
+</code></pre>
+<h2><a name="available-materials"></a>Available materials</h2>
+<h4><a name="solid-color"></a>Solid Color</h4>
+<p><code>var SolidColor = require('pex-materials/solid-color');</code></p>
+<p>Uniforms:
+<code>uColor</code> - [r,g,b,a]</p>
+<h4><a name="show-normals"></a>Show Normals</h4>
+<p><code>var ShowNormals = require('pex-materials/show-normals');</code></p>
+<h4><a name="showtexcoords"></a>ShowTexCoords</h4>
+<p><code>var ShowTexCoords = require('pex-materials/show-tex-coords');</code></p>
+<h4><a name="showcolors"></a>ShowColors</h4>
+<p><code>var ShowColors = require('pex-materials/show-colors');</code></p>
+<h4><a name="textured"></a>Textured</h4>
+<p><code>var Textured = require('pex-materials/textured');</code></p>
+<p>Uniforms:
+<code>uTexture</code> - Texture2D</p>
+<h4><a name="diffuse"></a>Diffuse</h4>
+<p><code>var Diffuse = require('pex-materials/diffuse');</code></p>
+<p>Uniforms:
+<code>uDiffuseColor</code> - [r,g,b,a]
+<code>uLightPos</code> - [x, y, z], world space light position</p>
+<h4><a name="matcap"></a>MatCap</h4>
+<p><code>var MatCap = require('pex-materials/mat-cap');</code></p>
+<p>Uniforms:
+<code>uTexture</code> - Texture2D</p>
+<h4><a name="point-sprite-solid-color"></a>Point Sprite Solid Color</h4>
+<p><code>var PointSpriteSolidColor = require('pex-materials/point-sprite-solid-color');</code></p>
+<p>Uniforms:
+<code>uColor</code> - [r,g,b,a]</p>
+<h4><a name="point-sprite-textured"></a>Point Sprite Textured</h4>
+<p><code>var PointSpriteTextured = require('pex-materials/point-sprite-textured');</code></p>
+<p>Uniforms:
+<code>uTexture</code> - Texture2D
+<code>uColor</code> - [r,g,b,a]</p>
+
+  </body>
+  </html>
+  

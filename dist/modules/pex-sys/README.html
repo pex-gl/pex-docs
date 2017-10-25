@@ -1,0 +1,146 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <h1><a name="pex-sys"></a>pex-sys</h1>
+<p>System and platform specific utilities for the pex library</p>
+<h2><a name="short-api"></a>Short API</h2>
+<h5><a name="event"></a>Event</h5>
+<h5><a name="eventdispatcher"></a>EventDispatcher</h5>
+<h5><a name="keyboard"></a>Keyboard</h5>
+<h5><a name="keyboardevent"></a>KeyboardEvent</h5>
+<h5><a name="mouse"></a>Mouse</h5>
+<h5><a name="mouseevent"></a>MouseEvent</h5>
+<h5><a name="resourceloader"></a>ResourceLoader</h5>
+<h5><a name="screen"></a>Screen</h5>
+<h5><a name="time"></a>Time</h5>
+<h5><a name="window"></a>Window</h5>
+<h5><a name="windowbrowser"></a>WindowBrowser</h5>
+<h5><a name="windowplask"></a>WindowPlask</h5>
+<h2><a name="api"></a>API</h2>
+<h3><a name="event"></a>Event</h3>
+<ul>
+<li><code>#copy()</code></li>
+<li><code>#getSender()</code></li>
+<li><code>#getType()</code></li>
+<li><code>#setSender()</code></li>
+<li><code>#stopPropagation()</code></li>
+</ul>
+<h3><a name="eventdispatcher"></a>EventDispatcher</h3>
+<ul>
+<li><code>#addEventListener()</code></li>
+<li><code>#dispatchEvent()</code></li>
+<li><code>#hasEventListener()</code></li>
+<li><code>#removeAllEventListeners()</code></li>
+<li><code>#removeEventListener()</code></li>
+</ul>
+<h3><a name="keyboard"></a>Keyboard</h3>
+<ul>
+<li><code>#handleKeyDown(e)</code></li>
+<li><code>#handleKeyPress(e)</code></li>
+<li><code>#handleKeyUp(e)</code></li>
+</ul>
+<h3><a name="keyboardevent"></a>KeyboardEvent</h3>
+<ul>
+<li><code>new KeyboardEvent(type, data)</code></li>
+<li><code>.KEY_DOWN</code></li>
+<li><code>.KEY_PRESS</code></li>
+<li><code>.KEY_UP</code></li>
+<li><code>.VK_BACKSPACE</code></li>
+<li><code>.VK_DELETE</code></li>
+<li><code>.VK_DOWN</code></li>
+<li><code>.VK_ENTER</code></li>
+<li><code>.VK_ESC</code></li>
+<li><code>.VK_LEFT</code></li>
+<li><code>.VK_RIGHT</code></li>
+<li><code>.VK_SPACE</code></li>
+<li><code>.VK_TAB</code></li>
+<li><code>.VK_UP</code></li>
+</ul>
+<h3><a name="mouse"></a>Mouse</h3>
+<ul>
+<li><code>new Mouse()</code></li>
+<li><code>#getPosX()</code></li>
+<li><code>#getPosY()</code></li>
+<li><code>#getPos()</code></li>
+<li><code>#getPrevPosX()</code></li>
+<li><code>#getPrevPosY()</code></li>
+<li><code>#getPrevPos()</code></li>
+<li><code>#getDeltaX()</code></li>
+<li><code>#getDeltaY()</code></li>
+<li><code>#getDelta()</code></li>
+<li><code>#handleMouseDown(e)</code></li>
+<li><code>#handleMouseUp(e)</code></li>
+<li><code>#handleMouseMove(e)</code></li>
+<li><code>#handleMouseScroll(e)</code></li>
+</ul>
+<h3><a name="mouseevent"></a>MouseEvent</h3>
+<ul>
+<li><code>.MOUSE_DOWN</code></li>
+<li><code>.MOUSE_DRAG</code></li>
+<li><code>.MOUSE_MOVE</code></li>
+<li><code>.MOUSE_SCROLL</code></li>
+<li><code>.MOUSE_UP</code></li>
+</ul>
+<h3><a name="resourceloader"></a>ResourceLoader</h3>
+<ul>
+<li><code>.load()</code></li>
+</ul>
+<h3><a name="screen"></a>Screen</h3>
+<ul>
+<li><code>.getDevicePixelRatio()</code></li>
+<li><code>.getHeight()</code></li>
+<li><code>.getNumScreens()</code></li>
+<li><code>.getWidth()</code></li>
+</ul>
+<h3><a name="time"></a>Time</h3>
+<ul>
+<li><code>#_restart()</code></li>
+<li><code>#_resume()</code></li>
+<li><code>#_stop()</code></li>
+<li><code>#_update()</code></li>
+<li><code>#getDelta()</code></li>
+<li><code>#getDeltaSeconds()</code></li>
+<li><code>#getElapsedFrames()</code></li>
+<li><code>#getElapsedSeconds()</code></li>
+<li><code>#getFPS()</code></li>
+</ul>
+<h3><a name="window"></a>Window</h3>
+<ul>
+<li><code>.create()</code></li>
+<li><code>#addEventListener()</code></li>
+<li><code>#getAspectRatio()</code></li>
+<li><code>#getBounds()</code></li>
+<li><code>#getContext()</code></li>
+<li><code>#getHeight()</code></li>
+<li><code>#getKeyboard()</code></li>
+<li><code>#getMouse()</code></li>
+<li><code>#getResources()</code></li>
+<li><code>#getSize()</code></li>
+<li><code>#getTime()</code></li>
+<li><code>#getWidth()</code></li>
+</ul>
+<h3><a name="windowbrowser"></a>WindowBrowser</h3>
+<h3><a name="windowplask"></a>WindowPlask</h3>
+
+  </body>
+  </html>
+  

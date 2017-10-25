@@ -1,0 +1,61 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <p><img src="thumb.png" alt /></p>
+<h1><a name="primitive-rounded-cube"></a>primitive-rounded-cube</h1>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/stable.svg" alt="stable" /></a></p>
+<p>A rounded cube geometry for 3D rendering, including normals, UVs and cell indices (faces).</p>
+<h2><a name="usage"></a>Usage</h2>
+<p><a href="https://www.npmjs.com/package/primitive-rounded-cube"><img src="https://nodei.co/npm/primitive-rounded-cube.png" alt="NPM" /></a></p>
+<h4><a name="-mesh---createroundedcube--sx--sy--sz--nx--ny--nz--r---"></a><code>mesh = createRoundedCube([sx, sy, sz, nx, ny, nz, r])</code></h4>
+<p>Parameters:<br />
+<code>sx</code> - size x, defaults to 1<br />
+<code>sy</code> - size y, defaults to <code>sx</code><br />
+<code>sz</code> - size z, defaults to <code>sx</code>
+<code>nx</code> - num subdivisions on x axis, defaults to 1<br />
+<code>ny</code> - num subdivisions on y axis, defaults to <code>sx</code><br />
+<code>nz</code> - num subdivisions on z axis, defaults to <code>sx</code>
+<code>r</code>  - rounded corner/edge radius, defaults to 0</p>
+<h2><a name="example"></a>Example</h2>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> createRoundedCube = <span class="hljs-built_in">require</span>(<span class="hljs-string">'primitive-rounded-cube'</span>);
+<span class="hljs-keyword">var</span> cube = createRoundedCube(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">20</span>, <span class="hljs-number">0.1</span>);
+</code></pre>
+<p><code>cube</code> will have the following structure:</p>
+<pre><code>{
+  positions: [ [x, y, z], [x, y, z], ... ],
+  cells: [ [a, b, c], [a, b, c], ... ],
+  uvs: [ [u, v], [u, v], ... ],
+  normals: [ [x, y, z], [x, y, z], ... ]
+}
+</code></pre>
+<h2><a name="demo"></a>Demo</h2>
+<p>Download or clone this repo and run:</p>
+<pre><code>cd demo
+npm install
+npm start
+</code></pre>
+<h2><a name="license"></a>License</h2>
+<p>MIT, see <a href="http://github.com/vorg/primitive-rounded-cube/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+
+  </body>
+  </html>
+  

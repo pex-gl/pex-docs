@@ -1,0 +1,57 @@
+
+  <html>
+  <head>
+  <link rel="stylesheet" href="../../assets/github-markdown.css">
+  <link rel="stylesheet" href="../../assets/github.css">
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
+
+  </style>
+  </head>
+  <body class="markdown-body">
+  <p><img src="thumb.png" alt /></p>
+<h1><a name="primitive-box"></a>primitive-box</h1>
+<p><a href="http://github.com/badges/stability-badges"><img src="http://badges.github.io/stability-badges/dist/stable.svg" alt="stable" /></a></p>
+<p>A minimal box geometry for 3D rendering, NOT including normals, UVs.</p>
+<p>Only vertices and cell indices (quad faces). As this geometry is not triangulated it's not ready for rendering you might need to use e.g. <a href="https://www.npmjs.com/package/geom-triangulate">geom-triangulate</a>.</p>
+<p>You are probably looking for <a href="https://www.npmjs.com/package/primitive-cube">primitive-cube</a>. The difference is that cube has separate faces that can be textured while box does not. This is one solid mesh which makes it perfect for subdivisions.</p>
+<h2><a name="usage"></a>Usage</h2>
+<p><a href="https://www.npmjs.com/package/primitive-box"><img src="https://nodei.co/npm/primitive-box.png" alt="NPM" /></a></p>
+<h4><a name="-mesh---createbox--sx--sy--sz---"></a><code>mesh = createBox([sx, sy, sz])</code></h4>
+<p>Parameters:<br />
+<code>sx</code> - size x, defaults to 1<br />
+<code>sy</code> - size y, defaults to <code>sx</code><br />
+<code>sz</code> - size z, defaults to <code>sx</code></p>
+<h2><a name="example"></a>Example</h2>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> createBox = <span class="hljs-built_in">require</span>(<span class="hljs-string">'primitive-box'</span>);
+<span class="hljs-keyword">var</span> box = createCreate(<span class="hljs-number">1</span>);
+</code></pre>
+<p><code>cube</code> will have the following structure:</p>
+<pre><code>{
+  positions: [ [x, y, z], [x, y, z], ... ],
+  cells: [ [a, b, c, d], [c, d, e, f], ... ],
+}
+</code></pre>
+<h2><a name="demo"></a>Demo</h2>
+<p>Download or clone this repo and run:</p>
+<pre><code>cd demo
+npm install
+npm start
+</code></pre>
+<h2><a name="license"></a>License</h2>
+<p>MIT, see <a href="http://github.com/vorg/primitive-box/blob/master/LICENSE.md">LICENSE.md</a> for details.</p>
+
+  </body>
+  </html>
+  
