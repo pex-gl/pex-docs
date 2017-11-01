@@ -48,7 +48,7 @@ function renderRepo (name) {
     // render section
     return ['div', { class: 'lh-copy' },
       ['a', { class: 'no-underline', target: 'readme-view' },
-        ['h1', { class: 'f5 item normal ma0 mt3 mb3 black' }, name.replace('#', '')]
+        ['h1', { class: 'f5 item normal ma0 mt3 mb3 gray' }, name.replace('#', '')]
       ]
     ]
   }
@@ -58,15 +58,15 @@ function renderRepo (name) {
   return ['div', { class: 'f7 lh-copy' },
       ['div', { class: 'flex flex-row no-underline', onclick: 'expand(this)' },
         ['h2', { class: 'item normal f7 ma0 mt1 ' },
-          ['a', { class: 'dim no-underline dark-green', href: `modules/${module.name}/README.html`, target: 'readme-view' }, module.name ]
+          ['a', { class: 'dim no-underline black', href: `modules/${module.name}/README.html`, target: 'readme-view' }, module.name ]
         ],
         ['a', { class: 'dim no-underline ml2 flex-auto w3 truncate normal f7 ma0 mt1 moon-gray', href: `https://github.com/${module.user}`, target: '_blank'}, module.user],
-        ['span', { class: 'w3 truncate normal f7 ma0 mt1 dark-green' }, module.version]
+        ['span', { class: 'w3 truncate normal f7 ma0 mt1 black' }, module.version]
       ],
     module.headers.map((line) => {
       let color = 'gray'
       if (line[1].includes('.') || line[1].includes('(')) color = 'green'
-      return ['a', { class: `ml2 no-underline ${color} dim truncate`, style: 'max-width: 300px;', href: `modules/${module.name}/README.html#${line[0]}`, target: 'readme-view' },
+      return ['a', { class: `no-underline ${color} dim truncate`, style: 'max-width: 300px;', href: `modules/${module.name}/README.html#${line[0]}`, target: 'readme-view' },
         ['h3', { class: `item normal f7 mt1 ${color} dim ma0` }, line[1].replace(/`/g, '')]
       ]
     })
@@ -92,6 +92,9 @@ const html = ['html',
       }
       .expanded {
         display: block !important;
+      }
+      div.expanded {
+        margin-bottom: 0.5rem;
       }
     `]
   ],

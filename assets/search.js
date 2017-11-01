@@ -43,20 +43,24 @@ document.querySelector('#search').addEventListener('keyup', function (e) {
     }
 
     if (item.elem.nodeName === 'H2') {
-      // item.elem.classList.remove('mt1')
-      // item.elem.classList.remove('mt2')
-      // item.elem.classList.add(search ? 'mt2' : 'mt1')
+      if (search) {
+        item.elem.parentElement.classList.add('mt2')
+      } else {
+        item.elem.parentElement.classList.remove('mt2')
+      }
     }
 
     console.log(item.name, visible)
 
     if (visible) {
       item.elem.parentElement.classList.remove('dn')
+      // item.elem.parentElement.classList.add('db')
       item.module.parentElement.classList.remove('dn')
       item.module.parentElement.classList.add('flex')
       item.module.parentElement.classList.add('flex-row')
       item.section.parentElement.classList.remove('dn')
     } else {
+      // item.elem.parentElement.classList.remove('db')
       item.elem.parentElement.classList.add('dn')
       item.elem.parentElement.classList.remove('flex')
       item.elem.parentElement.classList.remove('flex-row')
@@ -72,6 +76,7 @@ function expand (e) {
   if (wasExpanded) {
     return
   }
+  e.parentElement.classList.add('expanded')
   if (e.firstChild.nodeName === 'H2') {
     // e.classList.add('expanded')
     var sibling = e.nextElementSibling
