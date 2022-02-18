@@ -1,3 +1,3 @@
-﻿## PEX Docs
+﻿# pex-docs
 
-Documentation website for http://github.com/pex-gl
+Documentation [website](http://pex.gl/docs) for [PEX](http://github.com/pex-gl).

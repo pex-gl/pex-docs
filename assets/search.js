@@ -1,88 +1,78 @@
-function toArray (list) {
-  return Array.prototype.slice.call(list)
-}
+let section = null;
+let packageName = null;
+const items = Array.from(document.querySelectorAll(".item")).map((e) => {
+  if (e.nodeName === "H1") {
+    section = e;
+    packageName = e;
+  }
+  if (e.nodeName === "H2") packageName = e;
 
-// remove code examples
+  if (e.nodeName === "H3") e.parentElement.classList.add("dn");
 
-var headers = toArray(document.querySelectorAll('.item'))
-headers.forEach((e) => {
-  if (e.nodeName === 'H3') {
-    e.parentElement.classList.add('dn')
-  }
-})
-var section = null
-var module = null
-var items = headers.map((e) => {
-  if (e.nodeName === 'H1') {
-    section = e
-    module = e
-  }
-  if (e.nodeName === 'H2') {
-    module = e
-  }
   return {
     name: e.innerText.toLowerCase(),
     elem: e,
-    section: section,
-    module: module
-  }
-})
+    section,
+    packageName,
+  };
+});
 
-console.log('items', items)
-
-document.querySelector('#search').addEventListener('keyup', function (e) {
-  toArray(document.querySelectorAll('.expanded')).forEach((e) => e.classList.remove('expanded'))
-  var search = e.target.value.trim().toLowerCase()
-  items.forEach(function (item) {
-    var visible = true
+function onSearch({ target }) {
+  Array.from(document.querySelectorAll(".expanded")).forEach(({ classList }) =>
+    classList.remove("expanded")
+  );
+  const search = target.value.trim().toLowerCase();
+  items.forEach((item) => {
+    let visible = true;
     if (!search) {
-      // show only module names
-      visible = (item.elem.nodeName === 'H2')
+      visible = item.elem.nodeName === "H2";
     } else {
-      visible = (item.name.indexOf(search) !== -1)
+      visible = item.name.includes(search);
     }
 
-    if (item.elem.nodeName === 'H2') {
+    if (item.elem.nodeName === "H2") {
       if (search) {
-        item.elem.parentElement.classList.add('mt2')
+        item.elem.parentElement.classList.add("mt2");
       } else {
-        item.elem.parentElement.classList.remove('mt2')
+        item.elem.parentElement.classList.remove("mt2");
       }
     }
 
-    console.log(item.name, visible)
-
     if (visible) {
-      item.elem.parentElement.classList.remove('dn')
-      // item.elem.parentElement.classList.add('db')
-      item.module.parentElement.classList.remove('dn')
-      item.module.parentElement.classList.add('flex')
-      item.module.parentElement.classList.add('flex-row')
-      item.section.parentElement.classList.remove('dn')
+      item.elem.parentElement.classList.remove("dn");
+      item.packageName.parentElement.classList.remove("dn");
+      item.packageName.parentElement.classList.add("flex");
+      item.packageName.parentElement.classList.add("flex-row");
+      item.section.parentElement.classList.remove("dn");
     } else {
-      // item.elem.parentElement.classList.remove('db')
-      item.elem.parentElement.classList.add('dn')
-      item.elem.parentElement.classList.remove('flex')
-      item.elem.parentElement.classList.remove('flex-row')
+      item.elem.parentElement.classList.add("dn");
+      item.elem.parentElement.classList.remove("flex");
+      item.elem.parentElement.classList.remove("flex-row");
     }
-  })
-})
+  });
+}
 
+document.querySelector("#search").addEventListener("input", onSearch);
 
-function expand (e) {
-  var wasExpanded = e.nextElementSibling && e.nextElementSibling.classList.contains('expanded')
-  toArray(document.querySelectorAll('.expanded')).forEach((e) => e.classList.remove('expanded'))
+function expand({ nextElementSibling, parentElement, firstChild }) {
+  const wasExpanded =
+    nextElementSibling && nextElementSibling.classList.contains("expanded");
+  Array.from(document.querySelectorAll(".expanded")).forEach(({ classList }) =>
+    classList.remove("expanded")
+  );
 
-  if (wasExpanded) {
-    return
-  }
-  e.parentElement.classList.add('expanded')
-  if (e.firstChild.nodeName === 'H2') {
-    // e.classList.add('expanded')
-    var sibling = e.nextElementSibling
-    while (sibling && sibling.firstChild.nodeName === 'H3') {
-      sibling.classList.add('expanded')
-      sibling = sibling.nextElementSibling
+  if (wasExpanded) return;
+
+  parentElement.classList.add("expanded");
+  if (firstChild.nodeName === "H2") {
+    let sibling = nextElementSibling;
+    while (sibling && sibling.firstChild.nodeName === "H3") {
+      sibling.classList.add("expanded");
+      sibling = sibling.nextElementSibling;
     }
   }
 }
+
+document
+  .querySelectorAll(".item-title")
+  .forEach((item) => item.addEventListener("click", () => expand(item)));

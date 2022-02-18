@@ -1,160 +1,191 @@
-const walk = require('walk-sync')
-const path = require('path')
-const hoquet = require('hoquet')
-const fs = require('fs')
-const mkdirp = require('mkdirp')
-const renderReadme = require('render-readme')
-const fse = require('fs-extra')
-const R = require('ramda')
+import fs from "fs";
+import fse from "fs-extra";
+import path, { basename, dirname } from "path";
+import { fileURLToPath } from "url";
 
-fse.emptyDirSync(__dirname + '/dist')
-fse.copySync(__dirname + '/assets', __dirname + '/dist/assets')
+import hoquet from "hoquet";
+import mkdirp from "mkdirp";
+import renderReadme from "render-readme";
 
-const repos = fs.readFileSync('repos.txt', 'utf-8').split('\n').filter((l) => l)
+import packageList from "./packages.js";
 
-function parseLine (line) {
-  var m = line.match(/<h[234567]><a name="([^"]+)"><\/a>([^<]+)/)
-  if (m) return [m[1], m[2]]
-  var m2 = line.match(/<h[234567]><a name="([^"]+)"><\/a><code>([^<]+)/)
-  if (m2) return [m2[1], m2[2]]
-  else return null
+import {
+  getPackageNameFromGitHubUrl,
+  getPackagesData,
+  GITHUB_USER_CONTENT_URL,
+  isGitHubUrl,
+} from "./config.js";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Copy
+fse.emptyDirSync(`${__dirname}/dist`);
+fse.copySync(`${__dirname}/assets`, `${__dirname}/dist/assets`);
+
+[
+  `${__dirname}/node_modules/github-markdown-css/github-markdown.css`,
+  `${__dirname}/node_modules/highlight.js/styles/github.css`,
+  `${__dirname}/node_modules/highlight.js/styles/github-dark-dimmed.css`,
+  `${__dirname}/node_modules/tachyons/css/tachyons.min.css`,
+].forEach((asset) =>
+  fse.copySync(asset, `${__dirname}/dist/assets/${basename(asset)}`)
+);
+
+const DEFAULT_MODULE = "pex-context";
+
+function parseLine(line) {
+  const m = line.match(/<h[234567]><a name="([^"]+)"><\/a>([^<]+)/);
+  if (m) return [m[1], m[2]];
+  const m2 = line.match(/<h[234567]><a name="([^"]+)"><\/a><code>([^<]+)/);
+  if (m2) return [m2[1], m2[2]];
+  else return null;
 }
 
-function findModules () {
-  const lines = fs.readFileSync('repos.json.txt', 'utf-8').split('\n')
-  return lines.filter((l) => l).map((line) => {
-    const moduleInfo = JSON.parse(line)
+const packages = (await getPackagesData()).map((packageInfo) => {
+  const html = renderReadme(packageInfo?.readme || "")
+    // Fix relative src path
+    .replace(
+      /src=["|'](?!https?:\/\/)([^\/].+?)[\"|\']/g,
+      isGitHubUrl(packageInfo.name)
+        ? `src="${GITHUB_USER_CONTENT_URL}/${getPackageNameFromGitHubUrl(
+            packageInfo.name
+          )}/HEAD/$1"`
+        : `src="${GITHUB_USER_CONTENT_URL}/${packageInfo.user}/${packageInfo.name}/HEAD/$1"`
+    );
 
-    const html = renderReadme(moduleInfo.readme)
-    const htmlLines = html.split('\n')
+  return {
+    ...packageInfo,
+    readmeHtml: html,
+    headers: html
+      .split("\n")
+      .map(parseLine)
+      .filter((h) => h),
+  };
+});
 
-    return {
-      name: moduleInfo.name,
-      headers: htmlLines.map(parseLine).filter((h) => h),
-      readmeHtml: html,
-      version: moduleInfo.package.version,
-      user: moduleInfo.user
-    }
-  })
-}
-
-const modules = findModules()
-const modulesByName = {}
-modules.forEach((module) => modulesByName[module.name] = module)
-// console.log(modulesByName)
-
-function renderRepo (name) {
-  if (name.startsWith('#')) {
-    // render section
-    return ['div', { class: 'lh-copy' },
-      ['a', { class: 'no-underline', target: 'readme-view' },
-        ['h1', { class: 'f5 item normal ma0 mt3 mb3 gray' }, name.replace('#', '')]
-      ]
-    ]
-  }
-  const moduleName = name.split('/')[1]
-  const module = modulesByName[moduleName]
-  if (!module) console.log(module)
-  return ['div', { class: 'f7 lh-copy' },
-      ['div', { class: 'flex flex-row no-underline', onclick: 'expand(this)' },
-        ['h2', { class: 'item normal f7 ma0 mt1 ' },
-          ['a', { class: 'dim no-underline black', href: `modules/${module.name}/README.html`, target: 'readme-view' }, module.name ]
-        ],
-        ['a', { class: 'dim no-underline ml2 flex-auto w3 truncate normal f7 ma0 mt1 moon-gray', href: `https://github.com/${module.user}`, target: '_blank'}, module.user],
-        ['span', { class: 'w3 truncate normal f7 ma0 mt1 black' }, module.version]
+function renderPackage(name) {
+  if (name.startsWith("#")) {
+    // prettier-ignore
+    return [
+      "div", { class: "lh-copy" },
+      [
+        "a", { class: "no-underline", target: "readme-view" },
+        ["h1", { class: "f5 item normal ma0 mt3 gray" }, name.replace("#", "")],
       ],
+    ];
+  }
+
+  const module = packages.find((module) => module.name === name);
+  if (!module) {
+    console.log(name);
+    return ["div", `Missing ${name}`];
+  }
+
+  // prettier-ignore
+  return [
+    "div", { class: "f7 lh-copy" },
+    [
+      "div", { class: "flex flex-row no-underline item-title" },
+      [
+        "h2", { class: "item normal f7 ma0 mt1 " },
+        ["a", { class: "dim no-underline", style: "color: currentColor;", href: `packages/${module.package.name}/README.html`, target: "readme-view" },
+          module.package.name,
+        ],
+      ],
+      [
+        "span", { class: "no-underline ml2 flex-auto w3 truncate normal f7 ma0 mt1 gray" },
+        module.user,
+      ],
+      module.package.version !== "0.0.0" && [
+        "a", { class: "dim w3 truncate normal f7 ma0 mt1 near-white no-underline", href: `https://www.npmjs.com/package/${module.package.name}`, target: "_blank" },
+        module.package.version,
+      ],
+    ],
     module.headers.map((line) => {
-      let color = 'gray'
-      if (line[1].includes('.') || line[1].includes('(')) color = 'green'
-      return ['a', { class: `no-underline ${color} dim truncate`, style: 'max-width: 300px;', href: `modules/${module.name}/README.html#${line[0]}`, target: 'readme-view' },
-        ['h3', { class: `item normal f7 mt1 ${color} dim ma0` }, line[1].replace(/`/g, '')]
-      ]
-    })
-  ]
+      const color = [".", "(", ":", "{"].some((c) => line[1].includes(c))
+        ? "green"
+        : "gray";
+      return [
+        "a", { class: `no-underline ${color} dim truncate`, style: "max-width: 300px;", href: `packages/${module.package.name}/README.html#${line[0]}`, target: "readme-view" },
+        [
+          "h3", { class: `item normal f7 mt1 ${color} dim ma0 truncate` },
+          line[1].replace(/`/g, ""),
+        ],
+      ];
+    }),
+  ];
 }
 
-const html = ['html',
-  ['head',
-    ['meta', { name: 'viewport', content: 'width=device-width', 'initial-scale': '1' }],
-    ['link', { rel: 'stylesheet', href: 'assets/tachyons.min.css' }],
-    ['style', { type: 'text/css' }, `
-      input#search {
-        border: 1px solid #DDD;
-        border-width: 0 0 1px 0;
-      }
-      input#search:focus {
-        outline: none;
-        border: 1px solid #19a974;
-        border-width: 0 0 1px 0;
-      }
-      .f7 {
-        font-size: .75rem
-      }
-      .expanded {
-        display: block !important;
-      }
-      div.expanded {
-        margin-bottom: 0.5rem;
-      }
-    `]
+// Render Main
+// prettier-ignore
+const html = [
+  "html",
+  [
+    "head",
+    ["meta", { name: "viewport", content: "width=device-width", "initial-scale": "1" }],
+    ["link", { rel: "stylesheet", href: "assets/tachyons.min.css" }],
+    ["link", { rel: "stylesheet", href: "assets/style.css" }],
   ],
-  ['body', { class: 'code bg-black white flex flex-column', style: 'background: #FFFFFF; height: 100%; max-height: 100%;' },
-    ['div', { class: 'flex flex-row h-100' },
-      ['div', { class: 'pa3', style: 'overflow: scroll; width: 350px;' },
-        ['img', { src: 'assets/pex-logo-white.png', height: 24, class: 'mv3' }],
-        ['div', { class: 'flex mv2' },
-          ['input', { type: 'text', placeholder: 'Search', id: 'search', class: 'f5 pv2 flex-auto' }]
+  [
+    "body", { class: "code flex flex-column", style: "height: 100%; max-height: 100%;" },
+    [
+      "div", { class: "flex flex-row h-100" },
+      [
+        "aside", { class: "pa3", style: "overflow-y: scroll; width: max(350px, 15vw);" },
+        [
+          "a", { href: `/` },
+          ["img", { src: "assets/PEX.png", height: 24, class: "mv3" }],
         ],
-        repos.map(renderRepo),
-        ['script', { src: 'assets/search.js' }, '']
+        [
+          "div", { class: "flex mv2" },
+          ["input", { type: "search", placeholder: "Search", autocomplete: "off", id: "search", class: "f6 pa2 flex-auto" }],
+        ],
+        packageList.map(renderPackage),
+        ["script", { src: "assets/search.js" }, ""],
       ],
-      ['iframe', { name: 'readme-view', class: 'flex-auto', style: 'border-width: 0 0 0 1px;', src: 'modules/pex-context/README.html' }]
-    ]
-  ]
-]
+      ["iframe", { name: "readme-view", class: "flex-auto bn", src: `packages/${DEFAULT_MODULE}/README.html` }],
+    ],
+  ],
+];
 
-// create README.md files
+// Main
+console.log("Render content.");
 
-modules.forEach((module) => {
-  const targetModulePath = `${__dirname}/dist/modules/${module.name}`
-  if (!fs.existsSync(targetModulePath)) {
-    mkdirp.sync(targetModulePath)
+// Render packages
+packages.forEach(({ package: pkg, readmeHtml }) => {
+  const targetModulePath = `${__dirname}/dist/packages/${pkg.name}`;
+  if (!fs.existsSync(targetModulePath)) mkdirp.sync(targetModulePath);
+
+  fs.writeFileSync(
+    `${targetModulePath}/README.html`,
+    /* html */ `<html>
+<head>
+<link rel="stylesheet" href="../../assets/github-markdown.css">
+<link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../assets/github-markdown-dark-dimmed.css">
+
+<link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../assets/github-dark-dimmed.css">
+<link media="(prefers-color-scheme: light)" rel="stylesheet" href="../../assets/github.css">
+<style>
+  .markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    padding: 45px;
   }
 
-  var targetReadmeHtmlPath = `${targetModulePath}/README.html`
-  var html = module.readmeHtml
-
-  var header = `
-  <html>
-  <head>
-  <link rel="stylesheet" href="../../assets/github-markdown.css">
-  <link rel="stylesheet" href="../../assets/github.css">
-  <style>
+  @media (max-width: 767px) {
     .markdown-body {
-      box-sizing: border-box;
-      min-width: 200px;
-      max-width: 980px;
-      padding: 45px;
+      padding: 15px;
     }
+  }
+</style>
+</head>
+<body class="markdown-body">
+  ${readmeHtml}
+</body>
+</html>`
+  );
+});
 
-    @media (max-width: 767px) {
-      .markdown-body {
-        padding: 15px;
-      }
-    }
-
-  </style>
-  </head>
-  <body class="markdown-body">
-  `
-  var footer = `
-  </body>
-  </html>
-  `
-
-  html = header + html + footer
-  fs.writeFileSync(targetReadmeHtmlPath, html)
-})
-
-const htmlStr = hoquet.render(html)
-fs.writeFileSync(path.join(__dirname, 'dist/index.html'), htmlStr)
+// Render index
+fs.writeFileSync(path.join(__dirname, "dist/index.html"), hoquet.render(html));

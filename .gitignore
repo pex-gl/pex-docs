@@ -1,6 +1,6 @@
 build/
 dist/
 node_modules/
-repos.json.txt
+packages.json
 .DS_Store
 config.json
