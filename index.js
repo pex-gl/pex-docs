@@ -1,6 +1,6 @@
 import fs from "fs";
 import fse from "fs-extra";
-import path, { basename, dirname } from "path";
+import path, { basename, dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 import hoquet from "hoquet";
@@ -15,18 +15,20 @@ import {
   GITHUB_USER_CONTENT_URL,
   isGitHubUrl,
 } from "./config.js";
+import { createRequire } from "module";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
 
 // Copy
 fse.emptyDirSync(`${__dirname}/dist`);
 fse.copySync(`${__dirname}/assets`, `${__dirname}/dist/assets`);
 
 [
-  `${__dirname}/node_modules/github-markdown-css/github-markdown.css`,
-  `${__dirname}/node_modules/highlight.js/styles/github.css`,
-  `${__dirname}/node_modules/highlight.js/styles/github-dark-dimmed.css`,
-  `${__dirname}/node_modules/tachyons/css/tachyons.min.css`,
+  require.resolve("github-markdown-css"),
+  require.resolve("highlight.js/styles/github.css"),
+  require.resolve("highlight.js/styles/github-dark-dimmed.css"),
+  require.resolve("tachyons/css/tachyons.min.css"),
 ].forEach((asset) =>
   fse.copySync(asset, `${__dirname}/dist/assets/${basename(asset)}`)
 );
